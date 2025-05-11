@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-# Reserved keywords, including True and False
+# Reserved keywords
 reserved = {
     'if': 'IF',
     'else': 'ELSE',
@@ -8,18 +8,17 @@ reserved = {
     'for': 'FOR',
     'in': 'IN',
     'range': 'RANGE',
-    'True': 'TRUE',  # Reserved keyword for boolean True
-    'False': 'FALSE',  # Reserved keyword for boolean False
+    'True': 'TRUE',
+    'False': 'FALSE',
 }
 
-# Tokens to include ID, numbers, operators, commas, and reserved keywords
 tokens = (
     'ID', 'NUMBER', 'FLOAT', 'EQUALS',
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE',
     'LPAREN', 'RPAREN', 'EQEQ', 'NEQ', 'AND', 'OR',
     'GT', 'LT', 'COLON', 'NEWLINE', 'STRING',
     'GEQ', 'LEQ', 'COMMA'
-) + tuple(reserved.values())  # Include reserved keywords like TRUE and FALSE
+) + tuple(reserved.values())
 
 # Token rules for operators and symbols
 t_EQUALS = r'='
@@ -30,7 +29,7 @@ t_RPAREN = r'\)'
 t_GT = r'>'
 t_LT = r'<'
 t_COLON = r':'
-t_COMMA = r','  # Rule for comma
+t_COMMA = r','
 t_ignore = ' \t'
 t_TIMES  = r'\*'
 t_DIVIDE = r'/'
