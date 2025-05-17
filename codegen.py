@@ -58,24 +58,34 @@ def generate_cpp(ast):
         elif node[0] == 'id':
             return node[1]
 
-        elif node[0] == 'if_else':
+        elif node[0] == 'if':  # Handling 'if' statement
             target.append(f"if ({gen(node[1])}) {{")
-            for stmt in node[2]:
+            for stmt in node[2]:  # Inside block
+                gen(stmt, in_main)
+            target.append("}")
+
+        elif node[0] == 'if_else':  # Handling 'if-else' statement
+            target.append(f"if ({gen(node[1])}) {{")
+            for stmt in node[2]:  # Inside 'if' block
                 gen(stmt, in_main)
             target.append("} else {")
-            for stmt in node[3]:
+            for stmt in node[3]:  # Inside 'else' block
                 gen(stmt, in_main)
             target.append("}")
 
         elif node[0] == 'for_range':
-            var = node[1]
-            start = gen(node[2])
-            end = gen(node[3])
+            var = node[1]  # Loop variable (e.g., 'x')
+            start = 0  # Start value (e.g., 0)
+            end = gen(node[2])  # End value (e.g., 6)
             target.append(f"for (int {var} = {start}; {var} < {end}; {var}++) {{")
-            for stmt in node[4]:
+            
+            # The correct access is node[3], which is the list of statements inside the loop body
+            for stmt in node[3]:  # This is the list of statements inside the loop body
                 gen(stmt, in_main)
-            target.append("}")
+            
+            target.append("}")  # Closing bracket for the for loop
 
+    # Process the AST and generate the code
     for stmt in ast[1]:
         gen(stmt)
 
@@ -84,3 +94,5 @@ def generate_cpp(ast):
     lines.append("return 0;\n}")
 
     return '\n'.join(lines)
+
+
