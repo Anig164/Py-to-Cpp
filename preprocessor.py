@@ -1,10 +1,6 @@
 # preprocessor.py
 
 def preprocess_code(code: str) -> str:
-    """
-    Replaces Python-style indentation with C++-style braces.
-    Simplified version of Savir Singh's logic.
-    """
     lines = code.split('\n')
     result = []
     indent_stack = [0]
