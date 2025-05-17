@@ -36,13 +36,19 @@ def p_statement_print(p):
     '''statement : PRINT LPAREN expr RPAREN NEWLINE'''
     p[0] = ('print', p[3])
 
+# Rule for handling 'if' statement
 def p_statement_if(p):
+    '''statement : IF expr COLON NEWLINE block'''
+    p[0] = ('if', p[2], p[5])  # Simple if statement
+
+# Rule for handling 'if-else' statement
+def p_statement_if_else(p):
     '''statement : IF expr COLON NEWLINE block ELSE COLON NEWLINE block'''
-    p[0] = ('if_else', p[2], p[5], p[9])
+    p[0] = ('if_else', p[2], p[5], p[9])  # if-else statement
 
 def p_statement_for(p):
     '''statement : FOR ID IN RANGE LPAREN expr RPAREN COLON NEWLINE block'''
-    p[0] = ('for_range', p[2], p[6], p[10])  # Dynamic range with expr
+    p[0] = ('for_range', p[2], p[6], p[10])  # ('for_range', var, range_expr, block)
 
 # Comparison operators
 def p_expr_comparison(p):
